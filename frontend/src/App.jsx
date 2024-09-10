@@ -2,7 +2,9 @@ import React from 'react'
 
 const App = () => {
   return (
-    <div></div>
+    <div className="text-green-500">
+      Testing Tailwinf
+    </div>
   )
 }
 
