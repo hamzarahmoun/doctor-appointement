@@ -3,7 +3,7 @@ import logo from "../assets/assets_frontend/logo.svg";
 import { NavLink } from 'react-router-dom'
 const Navbar = () => {
   return (
-    <div>
+    <div className='flex justify-between items-center text-sm py-4 mb-5 border-b border-b-gray-400'>
         <img src={logo} alt="logo" />
         <ul>
             <NavLink>
