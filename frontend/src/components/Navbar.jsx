@@ -1,30 +1,47 @@
-import React from 'react'
-import logo from "../assets/assets_frontend/logo.svg";
-import { NavLink } from 'react-router-dom'
+import React, { useState } from 'react'
+import { assets } from "../assets/assets_frontend/assets";
+import { NavLink, useNavigate } from 'react-router-dom'
 const Navbar = () => {
+    const navigate = useNavigate();
+    const [isLoggedIn, setIsLoggedIn] = useState(true);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
-    <div className='flex justify-between items-center text-sm py-4 mb-5 border-b border-b-gray-400'>
-        <img src={logo} alt="logo" />
-        <ul>
-            <NavLink>
-                <li>Home</li>
-                <hr />
+    <div className='container mx-auto flex justify-between items-center text-sm py-4 mb-5 border-b border-b-gray-400'>
+    <img className='w-44 cursor-pointer' src={assets.logo} alt="logo" />
+        <ul className='hidden md:flex gap-5 items-start font-medium'>
+            <NavLink to="/" >
+                <li className='py-1'>Home</li>
+                <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden'/>
             </NavLink>
-            <NavLink>
-                <li>ALL DOCTORS</li>
-                <hr />
+            <NavLink to="/doctors" >
+                <li className='py-1'>ALL DOCTORS</li>
+                <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden'/>
             </NavLink>
-            <NavLink>
-                <li>ABOUT</li>
-                <hr />
+            <NavLink to="/about" >
+                <li className='py-1'>ABOUT</li>
+                <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden'/>
             </NavLink>
-            <NavLink>
-                <li>CONTACT</li>
-                <hr />
+                <NavLink to="/contact" >
+                <li className='py-1'>CONTACT</li>
+                <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden'/>
             </NavLink>
         </ul>
-        <div>
-            <button>Create Account</button>
+        <div className='flex items-center gap-2 cursor-pointer group relative'>
+            {isLoggedIn ? (
+                <div className='flex items-center gap-2'>
+                    <img className='w-8 rounded-full' src={assets.profile_pic} alt="profile" />
+                    <img className='w-2.5' src={assets.dropdown_icon} alt="dropdown" />
+                    <div className='absolute top-0 right-0 pt-14 text-base font-medium text-gray-600 z-20 hidden group-hover:block'>
+                        <div className='min-w-48 bg-stone-100 rounded flex flex-col gap-4 p-4'>
+                            <p className='cursor-pointer hover:text-black'>My Profile</p>
+                            <p className='cursor-pointer hover:text-black'>My Appointments</p>
+                            <p className='cursor-pointer hover:text-black'>Logout</p>
+                        </div>
+                    </div>
+                </div>
+            ) : (
+                <button onClick={()=>navigate("/login")} className='bg-primary text-white px-8 py-3 rounded-full font-light hidden md:block'>Create Account</button>
+            )}
         </div>
     </div>
   )
