@@ -7,7 +7,7 @@ const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
     <div className='container mx-auto flex justify-between items-center text-sm py-4 mb-5 border-b border-b-gray-400'>
-    <img className='w-44 cursor-pointer' src={assets.logo} alt="logo" />
+    <img onClick={()=>navigate('/')} className='w-44 cursor-pointer' src={assets.logo} alt="logo" />
         <ul className='hidden md:flex gap-5 items-start font-medium'>
             <NavLink to="/" >
                 <li className='py-1'>Home</li>
