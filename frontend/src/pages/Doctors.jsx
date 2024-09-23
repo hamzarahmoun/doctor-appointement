@@ -21,7 +21,7 @@ const navigate = useNavigate()
     applyFilter()
   }, [doctors, speciality])
   return (
-    <div>
+    <div> 
       <p className='text-gray-600'>Browse throught the doctore specialicity</p>
       <div className='flex flex-col sm:flex-row items-start gap-5 mt-5'>
         <div className='flex flex-col gap-4 text-sm text-gray-600'>
