@@ -7,14 +7,69 @@ const Appointement = () => {
   const { docId } = useParams()
   const { doctors, currencySymbol } = useContext(AppContext)
   const [docInfo, setDocInfo] = useState(null)
+  const [docSlots,setSDocSlots] = useState([])
+  const [slotIndex, setSlotIndex] = useState(0)
+  const [slotTime, setSlotTime] = useState('')
+  
   const fetchDocInfo = async () => {
     const docInfo = doctors.find(doc => doc._id === docId)
     setDocInfo(docInfo)
-    console.log(docInfo)
   }
+
+  const getAvailableSlots = async()=>{
+    setSDocSlots([])
+    // gettting current date
+    let today = new Date()
+    for (let i=0; i<7;i++){
+      //getting date with index
+      let currentDate = new Date(today)
+      currentDate.setDate(today.getDate() + i)
+
+      //setting end time of the date with inde
+      let endTime = new Date()
+      endTime.setDate(today.getDate() + i )
+      endTime.setHours(21,0,0,0)
+
+      // setting hours
+      if(today.getDate()=== currentDate.getDate()){
+        currentDate.setHours(currentDate.getHours() > 10 ? currentDate.getHours() + 1 : 10)
+        currentDate.setMinutes(currentDate.getMinutes() > 30 ? 30 : 0)
+      }else{
+        currentDate.setHours(10)
+        currentDate.setMinutes(0)
+      }
+      let timeSlots = []
+
+      while (currentDate<endTime){
+        let formattedTime = currentDate.toLocaleDateString([],{hour:'2-digit',minute:'2-digit'})
+        
+        // add slot to array
+
+        timeSlots.push({
+          datetime: new Date(currentDate),
+          time: formattedTime
+        })
+
+        // increment time by 30 min
+
+        currentDate.setMinutes(currentDate.getMinutes() + 30)
+      }
+      setSDocSlots(prev =>([...prev,timeSlots]))
+    }
+  }
+
+
   useEffect(() => {
     fetchDocInfo()
   }, [doctors, docId])
+
+  useEffect(()=>{
+    getAvailableSlots()
+  },[docInfo])
+
+  useEffect(()=>{
+console.log(docSlots)
+  },[docSlots])
   return docInfo && (
     <div>
       {/*............Doctor Detail............*/}
