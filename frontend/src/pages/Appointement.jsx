@@ -6,6 +6,7 @@ import { assets } from '../assets/assets_frontend/assets'
 const Appointement = () => {
   const { docId } = useParams()
   const { doctors, currencySymbol } = useContext(AppContext)
+  const daysOfWeek = ["SUN","MON","TUE","WED","THU","FRI","SAT"]
   const [docInfo, setDocInfo] = useState(null)
   const [docSlots,setSDocSlots] = useState([])
   const [slotIndex, setSlotIndex] = useState(0)
@@ -96,6 +97,20 @@ console.log(docSlots)
           </p>
         </div>
 
+      </div>
+      {/*......... BOOKING SLOTS...........*/}
+      <div className='sm:ml-72 sm:pl-4 mt-4 font-medium  text-gray-700'>
+        <p>Booking Slots</p>
+        <div className='flex gap-3 items-center w-full overflow-x-scroll mt-4'>
+          {
+            docSlots.length && docSlots.map((item,index)=>(
+              <div onClick={()=>setSlotIndex(index)} className={`text-center py-6 min-w-16 rounded-full cursor-pointer ${slotIndex === index ? 'bg-primary text-white' : 'border border-gray-200'}`} key={index}>
+                <p>{item[0] && daysOfWeek[item[0].datetime.getDay()]}</p>
+                <p>{item[0] && item[0].datetime.getDate()}</p>
+              </div>
+            ))
+          }
+        </div>
       </div>
 
     </div>
