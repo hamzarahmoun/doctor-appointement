@@ -4,7 +4,7 @@ import { assets } from '../assets/assets_frontend/assets'
 const About = () => {
   return (
     <div > {/* Centering the content */}
-      <div className='text-center text-2xl pt-10 text-gray-500'>
+      <div className='text-center text-2xl pt-10 text-gray-500 '>
         <p>About <span className='text-gray-700 font-medium'>Us</span></p>
       </div>
 
